@@ -1,0 +1,45 @@
+
+package hotal.management.system;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class HotelmanagementSystem extends JFrame implements ActionListener
+{
+    
+    HotelmanagementSystem()
+    {
+        //setSize(1366,565);
+        //setLocation(100,100);
+        setBounds(100,100,1366,565);
+        setLayout(null);
+        ImageIcon il=new ImageIcon(ClassLoader.getSystemResource("icons/first.jpg"));
+        JLabel image= new JLabel(il);
+        image.setBounds(0,0,1366,565);
+        JButton next =new JButton("Next"); 
+        next.setBounds(1115,450,150,50);
+        next.setBackground(Color.white);
+        next.setForeground(Color.black);
+   
+        next.setFont(new Font("serif",Font.PLAIN,50));
+        next.addActionListener(this);
+        image.add(next);
+       
+        add(image);
+        setVisible(true);
+    }
+   public void actionPerformed(ActionEvent ae)
+   {
+       setVisible(false);
+       new Login();
+       
+   }
+    
+public static void main (String []args)
+{
+    new HotelmanagementSystem();
+}
+}
+    
+
