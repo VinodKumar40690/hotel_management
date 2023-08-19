@@ -1,0 +1,88 @@
+
+package hotal.management.system;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
+
+public class Login extends JFrame implements ActionListener{
+JTextField username;
+JPasswordField password; 
+JButton login, Exit;
+    Login()
+{
+    getContentPane().setBackground(Color.white); 
+    setLayout(null);
+    JLabel user=new JLabel("UserName");
+    user.setBounds(40,10,100,30);
+    add(user);
+    username=new JTextField();
+    username.setBounds(150,10,150,30);
+    add(username);
+    setBounds(500,200,600,300);
+     JLabel pass=new JLabel("Password");
+    pass.setBounds(40,70,100,30);
+    add(pass);
+    password=new JPasswordField();
+    password.setBounds(150,70,150,30);
+    add(password);
+    login= new JButton("Login");
+    login.setBounds(40,150,120,30);
+    login.setBackground(Color.black);
+    login.setForeground(Color.white);
+    login.addActionListener(this);
+    add(login); 
+    Exit= new JButton("Exit");
+    Exit.setBounds(180,150,120,30);
+    Exit.setBackground(Color.black);
+    Exit.setForeground(Color.white);
+    Exit.addActionListener(this);
+    add(Exit);
+    ImageIcon i1=new ImageIcon(ClassLoader.getSystemResource("icons/second.jpg"));
+    JLabel image = new JLabel(i1);
+    Image i2 =i1.getImage().getScaledInstance(200,200,Image.SCALE_DEFAULT);
+    ImageIcon i3= new ImageIcon(i2);
+    JLabel Image =new JLabel(i3);
+    Image.setBounds(350, 10, 200, 200);
+    add(Image);
+    setBounds(500,200,600,300);
+    
+    setVisible(true);
+}
+public void actionPerformed(ActionEvent ae)     
+   {
+     if(ae.getSource()==login)
+                  {
+                      String user=username.getText();
+                      String pass=password.getText();
+                      System.out.println(pass);
+                      System.out.println(user);
+                      
+                      
+                      try {
+                          conn c=new conn();
+                          String query ="select * from login where username='" + user +"' and password='"+ pass +"'";
+                          c.s.executeQuery(query);                      
+                          ResultSet rs = c.s.executeQuery(query);
+                          if(rs.next()){
+                              setVisible(false);
+                              new Dashboard();
+                          }else{
+                              JOptionPane.showMessageDialog(null,"Invalid username and password");
+                              setVisible(true);
+                          }
+                      }catch(Exception e){
+                          e.printStackTrace();
+                      }
+                  }
+      else if(ae.getSource()==Exit)
+                  {
+                      setVisible(false);
+                  }
+         
+   }
+public static void main(String arg[])
+{
+    new Login();
+}
+}
